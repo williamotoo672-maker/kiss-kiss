@@ -1,11 +1,11 @@
-Here is an updated HTML document that implements a stacked, modern top bar layout with icons, similar to contemporary restaurant websites.
+Here is an HTML document with a fully stacked, mobile-first header layout where all icons and navigation elements align vertically on phones for a clean, modern look.
 ```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Kiss Kiss Kitchen & Pub | Modern Stacked Layout</title>
+  <title>Kiss Kiss Kitchen & Pub | Mobile Stacked Layout</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -28,7 +28,6 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       --crimson-accent: #b85c38;
       --kiss-pink: #d44c6c;
       --deep-espresso: #2c2418;
-      --soft-sand: #f8f2e9;
     }
     h1, h2, h3, .logo {
       font-family: 'Cormorant Garamond', serif;
@@ -38,10 +37,10 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
     .container {
       max-width: 1400px;
       margin: 0 auto;
-      padding: 0 40px;
+      padding: 0 24px;
     }
     
-    /* ========== MODERN STACKED HEADER ========== */
+    /* ========== FULLY STACKED MOBILE HEADER ========== */
     header {
       background: rgba(30, 23, 18, 0.96);
       backdrop-filter: blur(12px);
@@ -50,62 +49,69 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       top: 0;
       z-index: 1000;
       border-bottom: 1px solid rgba(201, 160, 61, 0.3);
-      padding: 12px 0;
+      padding: 14px 0;
     }
-    .header-top {
+    /* Everything stacked vertically on mobile */
+    .header-stack {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      margin-bottom: 12px;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
     }
     .logo {
       font-size: 32px;
       font-weight: 700;
       color: var(--rich-gold);
       text-decoration: none;
+      text-align: center;
       letter-spacing: 1px;
     }
     .logo span {
       color: var(--kiss-pink);
     }
+    /* Action buttons row - also stacked on mobile */
     .header-actions {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 20px;
+      flex-wrap: wrap;
+      width: 100%;
     }
     .cart-icon-wrapper {
       position: relative;
       cursor: pointer;
       background: rgba(255,255,255,0.08);
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 50px;
       transition: 0.3s;
       border: 1px solid rgba(201,160,61,0.3);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
     .cart-icon-wrapper:hover {
       background: rgba(201,160,61,0.2);
       border-color: var(--rich-gold);
     }
     .cart-icon {
-      font-size: 22px;
+      font-size: 18px;
       color: var(--rich-gold);
     }
     .cart-count {
-      position: absolute;
-      top: -8px;
-      right: -8px;
       background: var(--kiss-pink);
       color: white;
       border-radius: 50%;
       width: 22px;
       height: 22px;
       font-size: 12px;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      margin-left: 4px;
     }
     .order-now-btn {
       background: linear-gradient(135deg, var(--rich-gold) 0%, #b58b30 100%);
@@ -117,41 +123,46 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       color: #1e1712;
       cursor: pointer;
       transition: 0.3s;
-      display: flex;
+      display: inline-flex;
       align-items: center;
       gap: 8px;
     }
     .order-now-btn:hover {
       transform: scale(1.02);
-      background: linear-gradient(135deg, #dbb347 0%, #c9a03d 100%);
     }
-    
-    /* Navigation Bar - Stacked below */
-    .nav-bar {
+    /* Navigation - stacked vertically on mobile */
+    .nav-stack {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      gap: 40px;
-      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      gap: 12px;
+      margin-top: 4px;
       padding-top: 8px;
       border-top: 1px solid rgba(201, 160, 61, 0.2);
     }
     .nav-links {
       display: flex;
-      gap: 40px;
-      list-style: none;
       flex-wrap: wrap;
       justify-content: center;
+      gap: 28px;
+      list-style: none;
+      padding: 0;
+      width: 100%;
+    }
+    .nav-links li {
+      text-align: center;
     }
     .nav-links a {
       text-decoration: none;
       color: var(--warm-cream);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 500;
       transition: 0.2s;
       padding: 6px 0;
       position: relative;
-      letter-spacing: 0.5px;
+      white-space: nowrap;
     }
     .nav-links a:hover {
       color: var(--rich-gold);
@@ -169,14 +180,8 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
     .nav-links a:hover::after {
       width: 100%;
     }
-    .nav-links a.active {
-      color: var(--rich-gold);
-    }
-    .nav-links a.active::after {
-      width: 100%;
-    }
     
-    /* Hero section */
+    /* Hero */
     .hero {
       min-height: 100vh;
       background: linear-gradient(107deg, rgba(20,15,12,0.85) 0%, rgba(0,0,0,0.65) 100%), url('https://images.unsplash.com/photo-1547573854-74d2a71d0826?q=80&w=2070&auto=format') center/cover no-repeat fixed;
@@ -186,16 +191,18 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
     }
     .hero-content {
       max-width: 700px;
-      padding: 140px 0 80px;
+      padding: 160px 0 80px;
+      text-align: center;
+      margin: 0 auto;
     }
     .hero h1 {
-      font-size: 70px;
+      font-size: 52px;
       color: var(--warm-cream);
-      line-height: 1.1;
+      line-height: 1.2;
       margin-bottom: 24px;
     }
     .hero p {
-      font-size: 20px;
+      font-size: 18px;
       color: #f3e9dc;
       margin-bottom: 40px;
     }
@@ -210,27 +217,23 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       cursor: pointer;
       transition: 0.3s;
     }
-    .btn-hero:hover {
-      transform: scale(1.02);
-    }
     
     /* Sections */
     .section {
-      padding: 100px 0;
+      padding: 80px 0;
     }
     .section-dark { background: #fef7ef; }
     .section-light { background: #ffffff; }
     .section-title {
-      font-size: 52px;
+      font-size: 42px;
       text-align: center;
       margin-bottom: 20px;
       color: #2c2418;
-      position: relative;
     }
     .section-title:after {
       content: '';
       display: block;
-      width: 80px;
+      width: 70px;
       height: 3px;
       background: var(--kiss-pink);
       margin: 15px auto 0;
@@ -241,23 +244,22 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 42px;
+      gap: 30px;
       margin-top: 40px;
     }
     .menu-card {
       background: white;
-      border-radius: 32px;
+      border-radius: 28px;
       text-align: center;
-      padding: 32px 20px;
+      padding: 28px 16px;
       border: 1px solid #f0e2d0;
       transition: all 0.3s ease;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
-    .menu-card:hover { transform: translateY(-8px); border-color: var(--kiss-pink); }
-    .menu-icon { font-size: 52px; color: var(--kiss-pink); margin-bottom: 20px; }
-    .menu-card h3 { font-size: 26px; margin-bottom: 10px; }
-    .menu-card p { color: #6b5a48; font-size: 14px; margin-bottom: 16px; }
-    .price { font-size: 22px; font-weight: 700; color: var(--crimson-accent); margin-bottom: 16px; }
+    .menu-card:hover { transform: translateY(-5px); border-color: var(--kiss-pink); }
+    .menu-icon { font-size: 48px; color: var(--kiss-pink); margin-bottom: 16px; }
+    .menu-card h3 { font-size: 24px; margin-bottom: 8px; }
+    .menu-card p { color: #6b5a48; font-size: 13px; margin-bottom: 16px; }
+    .price { font-size: 20px; font-weight: 700; color: var(--crimson-accent); margin-bottom: 16px; }
     .add-to-cart-btn {
       background: var(--rich-gold);
       border: none;
@@ -265,33 +267,37 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       border-radius: 40px;
       font-weight: 600;
       cursor: pointer;
-      transition: 0.2s;
+      width: 100%;
+      max-width: 160px;
+      margin: 0 auto;
+      display: block;
     }
-    .add-to-cart-btn:hover { background: #b58b30; }
     
     /* Cart & Order */
     .cart-container, .order-form, .owner-panel {
       background: white;
-      border-radius: 32px;
-      padding: 32px;
+      border-radius: 28px;
+      padding: 24px;
       margin-top: 30px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       border: 1px solid #eddabc;
     }
     .cart-item {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      gap: 12px;
       padding: 15px 0;
       border-bottom: 1px solid #eee;
-      flex-wrap: wrap;
     }
-    .cart-item-quantity { display: flex; align-items: center; gap: 12px; }
+    @media (min-width: 600px) {
+      .cart-item { flex-direction: row; justify-content: space-between; align-items: center; }
+    }
+    .cart-item-quantity { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
     .quantity-btn {
       background: #f0e2d0;
       border: none;
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
       font-weight: bold;
       cursor: pointer;
@@ -303,15 +309,14 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       padding: 6px 14px;
       border-radius: 30px;
       cursor: pointer;
-      margin-left: 15px;
       font-size: 12px;
     }
-    .cart-total { text-align: right; font-size: 24px; font-weight: bold; margin: 20px 0; }
-    .form-group { margin-bottom: 20px; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 8px; }
+    .cart-total { text-align: right; font-size: 22px; font-weight: bold; margin: 20px 0; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; }
     .form-group input, .form-group textarea {
       width: 100%;
-      padding: 14px;
+      padding: 12px 16px;
       border-radius: 28px;
       border: 1px solid #e2d4c4;
       font-family: 'Inter', sans-serif;
@@ -320,67 +325,66 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       background: var(--kiss-pink);
       color: white;
       border: none;
-      padding: 14px 32px;
+      padding: 14px;
       border-radius: 40px;
       font-weight: bold;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       width: 100%;
     }
     
-    /* Reviews Modern */
-    .reviews-header { text-align: center; margin-bottom: 50px; }
-    .reviews-stats { display: flex; justify-content: center; gap: 40px; margin-top: 20px; flex-wrap: wrap; }
+    /* Reviews */
+    .reviews-header { text-align: center; margin-bottom: 40px; }
+    .reviews-stats { display: flex; justify-content: center; gap: 20px; margin-top: 20px; flex-wrap: wrap; }
     .stat-card {
       background: linear-gradient(135deg, #fff9f0, #fff);
-      padding: 20px 30px;
-      border-radius: 60px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      padding: 12px 20px;
+      border-radius: 50px;
       display: inline-flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
-    .stat-card i { font-size: 32px; color: var(--rich-gold); }
-    .stat-card .stat-number { font-size: 32px; font-weight: 800; color: var(--kiss-pink); }
+    .stat-card i { font-size: 24px; color: var(--rich-gold); }
+    .stat-card .stat-number { font-size: 24px; font-weight: 800; color: var(--kiss-pink); }
     .review-form-modern {
       background: linear-gradient(135deg, #fef9f2, #ffffff);
-      border-radius: 36px;
-      padding: 35px;
-      margin-bottom: 50px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+      border-radius: 28px;
+      padding: 24px;
+      margin-bottom: 40px;
       border: 1px solid rgba(201,160,61,0.3);
     }
     .rating-stars-input {
       display: flex;
-      gap: 12px;
-      font-size: 40px;
+      gap: 10px;
+      font-size: 32px;
       cursor: pointer;
-      margin: 20px 0;
+      margin: 16px 0;
+      justify-content: center;
     }
-    .rating-stars-input i { color: #ddd; transition: all 0.2s ease; }
+    .rating-stars-input i { color: #ddd; transition: 0.2s; }
     .rating-stars-input i.active, .rating-stars-input i.hover { color: var(--rich-gold); }
     .reviews-grid-modern {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 30px;
+      grid-template-columns: 1fr;
+      gap: 24px;
       margin-top: 30px;
+    }
+    @media (min-width: 700px) {
+      .reviews-grid-modern { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1000px) {
+      .reviews-grid-modern { grid-template-columns: repeat(3, 1fr); }
     }
     .review-card-modern {
       background: white;
-      border-radius: 28px;
-      padding: 28px;
-      transition: all 0.3s ease;
+      border-radius: 24px;
+      padding: 22px;
       border: 1px solid #f0e2d0;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.03);
     }
-    .review-card-modern:hover {
-      transform: translateY(-5px);
-      border-color: var(--rich-gold);
-    }
-    .review-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; }
+    .review-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
     .reviewer-avatar {
-      width: 50px;
-      height: 50px;
+      width: 45px;
+      height: 45px;
       background: linear-gradient(135deg, var(--kiss-pink), var(--rich-gold));
       border-radius: 50%;
       display: flex;
@@ -388,25 +392,26 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       justify-content: center;
       color: white;
       font-weight: bold;
-      font-size: 20px;
+      font-size: 18px;
     }
-    .reviewer-info h4 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    .reviewer-info .review-date { font-size: 11px; color: #a08363; }
-    .review-stars-modern { color: var(--rich-gold); font-size: 16px; letter-spacing: 2px; }
-    .review-text-modern { font-size: 15px; line-height: 1.6; color: #4a3b2e; margin: 16px 0; padding-left: 20px; border-left: 3px solid var(--rich-gold); }
+    .reviewer-info h4 { font-size: 16px; font-weight: 700; }
+    .reviewer-info .review-date { font-size: 10px; color: #a08363; }
+    .review-stars-modern { color: var(--rich-gold); font-size: 14px; }
+    .review-text-modern { font-size: 14px; line-height: 1.5; color: #4a3b2e; margin: 12px 0; padding-left: 12px; border-left: 2px solid var(--rich-gold); }
     .submit-review-btn {
       background: linear-gradient(135deg, var(--kiss-pink), #b8405c);
       color: white;
       border: none;
-      padding: 14px 32px;
+      padding: 12px 24px;
       border-radius: 40px;
       font-weight: bold;
       cursor: pointer;
+      width: 100%;
     }
     
     /* Owner Panel */
-    .owner-panel { background: #2b211b; color: #f0e2ce; border-color: var(--rich-gold); }
-    .owner-panel h3 { color: var(--rich-gold); margin-top: 20px; }
+    .owner-panel { background: #2b211b; color: #f0e2ce; border-color: var(--rich-gold); text-align: center; }
+    .owner-panel h3 { color: var(--rich-gold); margin-top: 20px; text-align: center; }
     .pin-input {
       background: white;
       border: none;
@@ -414,78 +419,98 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       letter-spacing: 4px;
       padding: 12px;
       border-radius: 40px;
-      width: 200px;
+      width: 180px;
+      margin: 10px auto;
+      display: block;
     }
     .hidden-panel { display: none; }
     .edit-item {
       background: #fef7ef;
       padding: 16px;
-      border-radius: 28px;
+      border-radius: 24px;
       margin-bottom: 20px;
-      color: #2c2418;
+      text-align: left;
     }
-    .edit-item input { width: calc(33% - 10px); margin: 5px; padding: 8px; border-radius: 30px; border: 1px solid #ccc; }
+    .edit-item input {
+      width: 100%;
+      margin: 6px 0;
+      padding: 10px;
+      border-radius: 30px;
+      border: 1px solid #ccc;
+    }
+    @media (min-width: 600px) {
+      .edit-item input { width: calc(33% - 10px); margin: 5px; }
+    }
     .admin-btn {
       background: var(--rich-gold);
       border: none;
-      padding: 8px 20px;
+      padding: 8px 18px;
       border-radius: 30px;
       font-weight: bold;
       margin: 5px;
       cursor: pointer;
     }
-    .danger-btn { background: #b85c38; color: white; cursor: pointer; padding: 8px 20px; border-radius: 30px; border: none; }
+    .danger-btn { background: #b85c38; color: white; cursor: pointer; padding: 8px 18px; border-radius: 30px; border: none; }
     .order-history-item {
       background: #1e1712;
-      padding: 15px;
-      border-radius: 24px;
-      margin-bottom: 15px;
-      font-size: 14px;
+      padding: 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      font-size: 13px;
+      text-align: left;
     }
     
     footer {
       background: #0c0907;
-      padding: 50px 0 30px;
+      padding: 40px 0 25px;
       color: #b7a07e;
       text-align: center;
+      font-size: 13px;
     }
     
-    @media (max-width: 850px) {
-      .container { padding: 0 24px; }
-      .hero h1 { font-size: 48px; }
-      .section-title { font-size: 40px; }
-      .header-top { flex-direction: column; text-align: center; }
-      .nav-bar { flex-direction: column; gap: 15px; }
-      .nav-links { gap: 25px; }
-      .reviews-grid-modern { grid-template-columns: 1fr; }
+    /* Mobile-first adjustments */
+    @media (max-width: 550px) {
+      .container { padding: 0 18px; }
+      .hero h1 { font-size: 42px; }
+      .section-title { font-size: 34px; }
+      .nav-links { gap: 18px; }
+      .nav-links a { font-size: 13px; white-space: nowrap; }
+      .logo { font-size: 28px; }
+      .header-actions { gap: 12px; }
+      .cart-icon-wrapper { padding: 8px 16px; }
+      .order-now-btn { padding: 8px 18px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <!-- Top row: Logo + Action Buttons (stacked on mobile but side by side on desktop) -->
-      <div class="header-top">
+      <div class="header-stack">
+        <!-- Logo on top -->
         <a href="#" class="logo">Kiss Kiss <span>Kitchen & Pub</span></a>
+        
+        <!-- Action Buttons (Cart + Order Now) - stacked on mobile -->
         <div class="header-actions">
           <div class="cart-icon-wrapper" id="cartIconBtn">
             <i class="fas fa-shopping-cart cart-icon"></i>
             <span class="cart-count" id="cartCountNav">0</span>
+            <span style="font-size: 13px;">Cart</span>
           </div>
           <button class="order-now-btn" id="headerOrderBtn">
             <i class="fas fa-motorcycle"></i> Order Now
           </button>
         </div>
-      </div>
-      <!-- Navigation Bar - Stacked below -->
-      <div class="nav-bar">
-        <ul class="nav-links">
-          <li><a href="#home" class="active">Home</a></li>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#order-section">Order Now</a></li>
-          <li><a href="#reviews-section">Reviews</a></li>
-          <li><a href="#owner-section">Owner Panel</a></li>
-        </ul>
+        
+        <!-- Navigation Links - fully stacked -->
+        <div class="nav-stack">
+          <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#order-section">Order</a></li>
+            <li><a href="#reviews-section">Reviews</a></li>
+            <li><a href="#owner-section">Owner</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </header>
@@ -516,7 +541,7 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
           <div id="cartTotal" class="cart-total">Total: GHS 0</div>
         </div>
         <div class="order-form">
-          <h3 style="margin-bottom: 20px;">Complete Your Order</h3>
+          <h3 style="margin-bottom: 18px; text-align: center;">Complete Your Order</h3>
           <div class="form-group"><label>Full Name *</label><input type="text" id="customerName" placeholder="e.g., John Mensah"></div>
           <div class="form-group"><label>Telephone Number *</label><input type="tel" id="customerPhone" placeholder="e.g., 024XXXXXXX"></div>
           <div class="form-group"><label>Current Location / Delivery Address *</label><input type="text" id="customerLocation" placeholder="e.g., Ejisu Central"></div>
@@ -533,7 +558,7 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
           <div class="reviews-stats" id="reviewsStats"></div>
         </div>
         <div class="review-form-modern">
-          <h3>Share Your Experience</h3>
+          <h3 style="text-align: center; margin-bottom: 10px;">Share Your Experience</h3>
           <div class="rating-stars-input" id="starRatingWidget">
             <i class="far fa-star" data-value="1"></i>
             <i class="far fa-star" data-value="2"></i>
@@ -541,8 +566,8 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
             <i class="far fa-star" data-value="4"></i>
             <i class="far fa-star" data-value="5"></i>
           </div>
-          <input type="text" id="reviewerNameModern" placeholder="Your name" style="width:100%; margin-bottom:15px;" value="Guest">
-          <textarea id="reviewTextModern" rows="3" placeholder="Tell us about the food, service, atmosphere..." style="width:100%; margin-bottom:20px;"></textarea>
+          <input type="text" id="reviewerNameModern" placeholder="Your name" style="width:100%; margin-bottom:15px; padding:12px; border-radius:40px; border:1px solid #e2d4c4;" value="Guest">
+          <textarea id="reviewTextModern" rows="3" placeholder="Tell us about the food, service, atmosphere..." style="width:100%; margin-bottom:20px; padding:12px; border-radius:24px; border:1px solid #e2d4c4;"></textarea>
           <button class="submit-review-btn" id="submitReviewModernBtn">Submit Review</button>
         </div>
         <div id="reviewsGridContainer" class="reviews-grid-modern"></div>
@@ -553,8 +578,8 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       <div class="container">
         <h2 class="section-title">Owner Administration</h2>
         <div class="owner-panel">
-          <p><i class="fas fa-lock"></i> Enter PIN to manage menu, view customer orders, and control content.</p>
-          <input type="password" id="pinInput" class="pin-input" placeholder="Enter PIN" maxlength="4" style="margin: 15px 0;">
+          <p><i class="fas fa-lock"></i> Enter PIN to manage menu, orders, and reviews</p>
+          <input type="password" id="pinInput" class="pin-input" placeholder="Enter PIN" maxlength="4">
           <button id="unlockOwnerBtn" class="admin-btn">Unlock Panel</button>
           <div id="ownerControls" class="hidden-panel">
             <h3>Edit Menu Items</h3>
@@ -575,12 +600,11 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
   <footer>
     <div class="container">
       <p>Kiss Kiss Kitchen & Pub | Kumasi-Ejisu | Quality and flavor guaranteed</p>
-      <p style="margin-top: 10px;">Order Hotline: 059 559 0891 | Follow us on Instagram & Facebook</p>
+      <p style="margin-top: 8px;">Order Hotline: 059 559 0891 | Follow us on Instagram & Facebook</p>
     </div>
   </footer>
 
   <script>
-    // Data
     let menuItems = [
       { id: 1, name: "Jollof Rice", desc: "Smoky tomato richness, authentic spices", icon: "fas fa-utensils", price: 45 },
       { id: 2, name: "Fried Rice", desc: "Wok-tossed vegetables & aromatic herbs", icon: "fas fa-fire", price: 40 },
@@ -599,7 +623,6 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
 
     function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
     
-    // Cart functions
     function saveCart() { localStorage.setItem('kissCart', JSON.stringify(cart)); updateCartUI(); }
     function loadCart() { const saved = localStorage.getItem('kissCart'); if(saved) { try { cart = JSON.parse(saved); } catch(e) { cart = []; } } else { cart = []; } updateCartUI(); }
     function updateCartUI() {
@@ -609,10 +632,10 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       if (!cartDiv) return;
       if (cart.length === 0) { cartDiv.innerHTML = '<p style="text-align:center; padding: 30px;">Your cart is empty. Add delicious items from the menu above.</p>'; if(totalDiv) totalDiv.innerHTML = 'Total: GHS 0'; if(cartCountSpan) cartCountSpan.innerText = '0'; return; }
       let html = '', total = 0;
-      cart.forEach(item => { const itemTotal = item.price * item.quantity; total += itemTotal; html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price}</small></div><div class="cart-item-quantity"><button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button><span>${item.quantity}</span><button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button><button class="remove-item" data-id="${item.id}">Remove</button></div><div>GHS ${itemTotal}</div></div>`; });
+      cart.forEach(item => { const itemTotal = item.price * item.quantity; total += itemTotal; html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price} each</small></div><div class="cart-item-quantity"><button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button><span style="min-width:30px;text-align:center;">${item.quantity}</span><button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button><button class="remove-item" data-id="${item.id}">Remove</button></div><div><strong>GHS ${itemTotal}</strong></div></div>`; });
       cartDiv.innerHTML = html;
       if(totalDiv) totalDiv.innerHTML = `Total: GHS ${total}`;
-      if(cartCountSpan) cartCountSpan.innerText = cart.reduce((sum,i)=>sum+i.quantity,0);
+      if(cartCountSpan) cartCountSpan.innerText = cart.reduce((s,i)=>s+i.quantity,0);
       document.querySelectorAll('.quantity-btn').forEach(btn => { btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); updateQuantity(id, btn.dataset.action); }); });
       document.querySelectorAll('.remove-item').forEach(btn => { btn.addEventListener('click', (e) => { removeItemCompletely(parseInt(btn.dataset.id)); }); });
     }
@@ -626,15 +649,14 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       document.querySelectorAll('.add-to-cart-btn').forEach(btn => { btn.addEventListener('click', (e) => { addToCart(parseInt(btn.dataset.id)); }); });
     }
     
-    // Reviews
     function renderModernReviews() {
       const container = document.getElementById('reviewsGridContainer');
       const statsContainer = document.getElementById('reviewsStats');
       if(!container) return;
       const avgRating = customerReviews.length ? (customerReviews.reduce((s,r)=>s+r.rating,0)/customerReviews.length).toFixed(1) : 0;
-      if(statsContainer) statsContainer.innerHTML = `<div class="stat-card"><i class="fas fa-star"></i><div><span class="stat-number">${avgRating}</span><br>Avg Rating</div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-number">${customerReviews.length}</span><br>Reviews</div></div>`;
-      if(customerReviews.length === 0) { container.innerHTML = '<div class="empty-reviews" style="text-align:center;padding:60px;">No reviews yet.</div>'; return; }
-      container.innerHTML = customerReviews.map(rev => `<div class="review-card-modern"><div class="review-card-header"><div style="display:flex;gap:15px;"><div class="reviewer-avatar">${rev.name.charAt(0).toUpperCase()}</div><div class="reviewer-info"><h4>${escapeHtml(rev.name)}</h4><div class="review-date">${rev.date || 'Recent'}</div></div></div><div class="review-stars-modern">${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div></div><div class="review-text-modern">"${escapeHtml(rev.text)}"</div></div>`).join('');
+      if(statsContainer) statsContainer.innerHTML = `<div class="stat-card"><i class="fas fa-star"></i><div><span class="stat-number">${avgRating}</span><br>Rating</div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-number">${customerReviews.length}</span><br>Reviews</div></div>`;
+      if(customerReviews.length === 0) { container.innerHTML = '<div class="empty-reviews" style="text-align:center;padding:40px;">No reviews yet. Be the first!</div>'; return; }
+      container.innerHTML = customerReviews.map(rev => `<div class="review-card-modern"><div class="review-card-header"><div style="display:flex;gap:12px;"><div class="reviewer-avatar">${rev.name.charAt(0).toUpperCase()}</div><div class="reviewer-info"><h4>${escapeHtml(rev.name)}</h4><div class="review-date">${rev.date || 'Recent'}</div></div></div><div class="review-stars-modern">${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div></div><div class="review-text-modern">"${escapeHtml(rev.text)}"</div></div>`).join('');
     }
     let currentRating = 0;
     function initStarWidget() {
@@ -659,7 +681,6 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       if(document.getElementById('ownerControls') && !document.getElementById('ownerControls').classList.contains('hidden-panel')) renderAdminPanel();
     }
     
-    // Owner Panel
     function renderAdminPanel() {
       const menuEditorDiv = document.getElementById('menuEditor');
       if(menuEditorDiv) {
@@ -697,7 +718,6 @@ Here is an updated HTML document that implements a stacked, modern top bar layou
       }
     }
     
-    // Event Listeners
     document.getElementById('heroMenuBtn')?.addEventListener('click', () => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }));
     document.getElementById('cartIconBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
     document.getElementById('headerOrderBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
