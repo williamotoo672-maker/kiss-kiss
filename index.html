@@ -1,9 +1,11 @@
+Here is the HTML document with a fully functional hamburger menu that stacks all icons and navigation links inside a mobile-friendly drawer.
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Kiss Kiss Kitchen & Pub | Mobile Stacked Layout</title>
+  <title>Kiss Kiss Kitchen & Pub | Hamburger Menu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
@@ -19,6 +21,7 @@
       font-family: 'Inter', sans-serif;
       color: #2c2418;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
     :root {
       --rich-gold: #c9a03d;
@@ -38,7 +41,7 @@
       padding: 0 24px;
     }
     
-    /* ========== FULLY STACKED MOBILE HEADER ========== */
+    /* ========== HAMBURGER MENU HEADER ========== */
     header {
       background: rgba(30, 23, 18, 0.96);
       backdrop-filter: blur(12px);
@@ -49,149 +52,242 @@
       border-bottom: 1px solid rgba(201, 160, 61, 0.3);
       padding: 14px 0;
     }
-    /* Everything stacked vertically on mobile */
-    .header-stack {
+    .header-flex {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
       align-items: center;
-      justify-content: center;
-      gap: 14px;
       width: 100%;
     }
     .logo {
-      font-size: 32px;
+      font-size: 28px;
       font-weight: 700;
       color: var(--rich-gold);
       text-decoration: none;
-      text-align: center;
       letter-spacing: 1px;
     }
     .logo span {
       color: var(--kiss-pink);
     }
-    /* Action buttons row - also stacked on mobile */
-    .header-actions {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      width: 100%;
+    .tagline-sm {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 2px;
     }
-    .cart-icon-wrapper {
-      position: relative;
-      cursor: pointer;
+    
+    /* Hamburger Button */
+    .hamburger {
       background: rgba(255,255,255,0.08);
-      padding: 10px 20px;
-      border-radius: 50px;
-      transition: 0.3s;
       border: 1px solid rgba(201,160,61,0.3);
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+      cursor: pointer;
+      padding: 12px 14px;
+      border-radius: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: 0.3s;
+      z-index: 1002;
+      position: relative;
     }
-    .cart-icon-wrapper:hover {
+    .hamburger:hover {
       background: rgba(201,160,61,0.2);
       border-color: var(--rich-gold);
     }
-    .cart-icon {
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--rich-gold);
+      transition: 0.3s;
+      border-radius: 2px;
+    }
+    .hamburger.active span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+    .hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .hamburger.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    
+    /* Cart Icon Next to Hamburger */
+    .cart-icon-header {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,160,61,0.3);
+      padding: 10px 14px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      position: relative;
+    }
+    .cart-icon-header:hover {
+      background: rgba(201,160,61,0.2);
+    }
+    .cart-icon-header i {
       font-size: 18px;
       color: var(--rich-gold);
     }
-    .cart-count {
+    .cart-count-header {
       background: var(--kiss-pink);
       color: white;
       border-radius: 50%;
-      width: 22px;
-      height: 22px;
-      font-size: 12px;
-      display: inline-flex;
+      width: 20px;
+      height: 20px;
+      font-size: 11px;
+      display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      margin-left: 4px;
     }
-    .order-now-btn {
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    /* ========== SIDEBAR / HAMBURGER MENU (ALL ICONS STACKED) ========== */
+    .sidebar-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 85%;
+      max-width: 350px;
+      height: 100vh;
+      background: linear-gradient(165deg, #1e1712 0%, #0f0c09 100%);
+      z-index: 1001;
+      transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      padding: 100px 28px 40px;
+      box-shadow: -5px 0 30px rgba(0,0,0,0.5);
+      border-left: 1px solid rgba(201,160,61,0.3);
+      overflow-y: auto;
+    }
+    .sidebar-menu.open {
+      right: 0;
+    }
+    .sidebar-menu .close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: var(--rich-gold);
+      font-size: 24px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 50px;
+    }
+    
+    /* All icons stacked vertically */
+    .menu-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      width: 100%;
+    }
+    .menu-stack-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(201,160,61,0.2);
+      text-decoration: none;
+    }
+    .menu-stack-item:hover {
+      background: rgba(201,160,61,0.15);
+      border-color: var(--rich-gold);
+      transform: translateX(8px);
+    }
+    .menu-stack-item i {
+      font-size: 26px;
+      width: 40px;
+      color: var(--rich-gold);
+      text-align: center;
+    }
+    .menu-stack-item span {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--warm-cream);
+      letter-spacing: 0.5px;
+    }
+    .menu-stack-item .badge {
+      background: var(--kiss-pink);
+      border-radius: 50px;
+      padding: 2px 10px;
+      font-size: 12px;
+      margin-left: auto;
+    }
+    
+    /* Order button inside sidebar */
+    .sidebar-order-btn {
       background: linear-gradient(135deg, var(--rich-gold) 0%, #b58b30 100%);
       border: none;
-      padding: 10px 24px;
-      border-radius: 50px;
+      padding: 16px;
+      border-radius: 60px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 16px;
       color: #1e1712;
       cursor: pointer;
       transition: 0.3s;
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+      width: 100%;
     }
-    .order-now-btn:hover {
+    .sidebar-order-btn:hover {
       transform: scale(1.02);
     }
-    /* Navigation - stacked vertically on mobile */
-    .nav-stack {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      gap: 12px;
-      margin-top: 4px;
-      padding-top: 8px;
-      border-top: 1px solid rgba(201, 160, 61, 0.2);
-    }
-    .nav-links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 28px;
-      list-style: none;
-      padding: 0;
-      width: 100%;
-    }
-    .nav-links li {
-      text-align: center;
-    }
-    .nav-links a {
-      text-decoration: none;
-      color: var(--warm-cream);
-      font-size: 15px;
-      font-weight: 500;
-      transition: 0.2s;
-      padding: 6px 0;
-      position: relative;
-      white-space: nowrap;
-    }
-    .nav-links a:hover {
-      color: var(--rich-gold);
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: 0;
+    
+    /* Overlay */
+    .menu-overlay {
+      position: fixed;
+      top: 0;
       left: 0;
-      background: var(--rich-gold);
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
       transition: 0.3s;
     }
-    .nav-links a:hover::after {
-      width: 100%;
+    .menu-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
     
-    /* Hero */
+    /* Hero Section */
     .hero {
       min-height: 100vh;
       background: linear-gradient(107deg, rgba(20,15,12,0.85) 0%, rgba(0,0,0,0.65) 100%), url('https://images.unsplash.com/photo-1547573854-74d2a71d0826?q=80&w=2070&auto=format') center/cover no-repeat fixed;
       display: flex;
       align-items: center;
-      margin-top: 0;
     }
     .hero-content {
       max-width: 700px;
-      padding: 160px 0 80px;
+      padding: 140px 0 80px;
       text-align: center;
       margin: 0 auto;
+    }
+    .hero-badge {
+      background: rgba(201,160,61,0.2);
+      backdrop-filter: blur(6px);
+      padding: 8px 20px;
+      border-radius: 50px;
+      color: var(--rich-gold);
+      display: inline-block;
+      margin-bottom: 24px;
+      font-size: 12px;
+      letter-spacing: 2px;
     }
     .hero h1 {
       font-size: 52px;
@@ -204,22 +300,35 @@
       color: #f3e9dc;
       margin-bottom: 40px;
     }
+    .hero-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
     .btn-hero {
       background: linear-gradient(135deg, var(--rich-gold) 0%, #b58b30 100%);
       border: none;
-      padding: 14px 42px;
+      padding: 14px 38px;
       border-radius: 50px;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 16px;
       color: #1e1712;
       cursor: pointer;
-      transition: 0.3s;
+    }
+    .btn-hero-outline {
+      background: transparent;
+      border: 1px solid var(--rich-gold);
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--rich-gold);
+      cursor: pointer;
     }
     
     /* Sections */
-    .section {
-      padding: 80px 0;
-    }
+    .section { padding: 80px 0; }
     .section-dark { background: #fef7ef; }
     .section-light { background: #ffffff; }
     .section-title {
@@ -238,7 +347,6 @@
       border-radius: 3px;
     }
     
-    /* Menu Grid */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -271,7 +379,6 @@
       display: block;
     }
     
-    /* Cart & Order */
     .cart-container, .order-form, .owner-panel {
       background: white;
       border-radius: 28px;
@@ -342,8 +449,6 @@
       align-items: center;
       gap: 12px;
     }
-    .stat-card i { font-size: 24px; color: var(--rich-gold); }
-    .stat-card .stat-number { font-size: 24px; font-weight: 800; color: var(--kiss-pink); }
     .review-form-modern {
       background: linear-gradient(135deg, #fef9f2, #ffffff);
       border-radius: 28px;
@@ -360,7 +465,6 @@
       justify-content: center;
     }
     .rating-stars-input i { color: #ddd; transition: 0.2s; }
-    .rating-stars-input i.active, .rating-stars-input i.hover { color: var(--rich-gold); }
     .reviews-grid-modern {
       display: grid;
       grid-template-columns: 1fr;
@@ -370,32 +474,12 @@
     @media (min-width: 700px) {
       .reviews-grid-modern { grid-template-columns: repeat(2, 1fr); }
     }
-    @media (min-width: 1000px) {
-      .reviews-grid-modern { grid-template-columns: repeat(3, 1fr); }
-    }
     .review-card-modern {
       background: white;
       border-radius: 24px;
       padding: 22px;
       border: 1px solid #f0e2d0;
     }
-    .review-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
-    .reviewer-avatar {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, var(--kiss-pink), var(--rich-gold));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-    }
-    .reviewer-info h4 { font-size: 16px; font-weight: 700; }
-    .reviewer-info .review-date { font-size: 10px; color: #a08363; }
-    .review-stars-modern { color: var(--rich-gold); font-size: 14px; }
-    .review-text-modern { font-size: 14px; line-height: 1.5; color: #4a3b2e; margin: 12px 0; padding-left: 12px; border-left: 2px solid var(--rich-gold); }
     .submit-review-btn {
       background: linear-gradient(135deg, var(--kiss-pink), #b8405c);
       color: white;
@@ -407,9 +491,7 @@
       width: 100%;
     }
     
-    /* Owner Panel */
-    .owner-panel { background: #2b211b; color: #f0e2ce; border-color: var(--rich-gold); text-align: center; }
-    .owner-panel h3 { color: var(--rich-gold); margin-top: 20px; text-align: center; }
+    .owner-panel { background: #2b211b; color: #f0e2ce; text-align: center; }
     .pin-input {
       background: white;
       border: none;
@@ -466,60 +548,78 @@
       font-size: 13px;
     }
     
-    /* Mobile-first adjustments */
     @media (max-width: 550px) {
-      .container { padding: 0 18px; }
       .hero h1 { font-size: 42px; }
       .section-title { font-size: 34px; }
-      .nav-links { gap: 18px; }
-      .nav-links a { font-size: 13px; white-space: nowrap; }
-      .logo { font-size: 28px; }
-      .header-actions { gap: 12px; }
-      .cart-icon-wrapper { padding: 8px 16px; }
-      .order-now-btn { padding: 8px 18px; font-size: 13px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="container">
-      <div class="header-stack">
-        <!-- Logo on top -->
-        <a href="#" class="logo">Kiss Kiss <span>Kitchen & Pub</span></a>
-        
-        <!-- Action Buttons (Cart + Order Now) - stacked on mobile -->
-        <div class="header-actions">
-          <div class="cart-icon-wrapper" id="cartIconBtn">
-            <i class="fas fa-shopping-cart cart-icon"></i>
-            <span class="cart-count" id="cartCountNav">0</span>
-            <span style="font-size: 13px;">Cart</span>
-          </div>
-          <button class="order-now-btn" id="headerOrderBtn">
-            <i class="fas fa-motorcycle"></i> Order Now
-          </button>
+      <div class="header-flex">
+        <div>
+          <a href="#" class="logo">Kiss Kiss <span>Kitchen & Pub</span></a>
+          <div class="tagline-sm">EJISU · KUMASI</div>
         </div>
-        
-        <!-- Navigation Links - fully stacked -->
-        <div class="nav-stack">
-          <ul class="nav-links">
-            <li><a href="#home" class="active">Home</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#order-section">Order</a></li>
-            <li><a href="#reviews-section">Reviews</a></li>
-            <li><a href="#owner-section">Owner</a></li>
-          </ul>
+        <div class="header-right">
+          <div class="cart-icon-header" id="cartIconBtn">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count-header" id="cartCountNav">0</span>
+          </div>
+          <div class="hamburger" id="hamburgerBtn">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
+  <!-- Sidebar Hamburger Menu - ALL ICONS STACKED VERTICALLY -->
+  <div class="sidebar-menu" id="sidebarMenu">
+    <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
+    <div class="menu-stack">
+      <div class="menu-stack-item" data-section="home">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+      </div>
+      <div class="menu-stack-item" data-section="menu">
+        <i class="fas fa-utensils"></i>
+        <span>Menu</span>
+      </div>
+      <div class="menu-stack-item" data-section="order">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Your Cart</span>
+        <span class="badge" id="sidebarCartCount">0</span>
+      </div>
+      <div class="menu-stack-item" data-section="reviews">
+        <i class="fas fa-star"></i>
+        <span>Reviews</span>
+      </div>
+      <div class="menu-stack-item" data-section="owner">
+        <i class="fas fa-crown"></i>
+        <span>Owner Panel</span>
+      </div>
+      <button class="sidebar-order-btn" id="sidebarOrderBtn">
+        <i class="fab fa-whatsapp"></i> Order on WhatsApp
+      </button>
+    </div>
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
   <main>
     <section id="home" class="hero">
       <div class="container">
         <div class="hero-content">
-          <h1>Kiss, Sip and<br>Savor Luxury</h1>
-          <p>Located at Kumasi-Ejisu — Signature jollof, fried rice, curry delights. Order online with our cart system.</p>
-          <button class="btn-hero" id="heroMenuBtn">Explore Menu</button>
+          <div class="hero-badge">NOW OPEN · EJISU, KUMASI</div>
+          <h1>FAST.<br>FRESH.<br>WORTH THE WAIT.</h1>
+          <p>Ejisu's most-loved spot for famous jollof, juicy kebabs, local dishes & chilled vibes. Dine-in or delivery — starting at GHS 45.</p>
+          <div class="hero-buttons">
+            <button class="btn-hero" id="heroOrderBtn">Order on WhatsApp</button>
+            <button class="btn-hero-outline" id="heroMenuBtn">View Menu</button>
+          </div>
         </div>
       </div>
     </section>
@@ -534,17 +634,17 @@
     <section id="order-section" class="section section-light">
       <div class="container">
         <h2 class="section-title">Your Order Cart</h2>
-        <div class="cart-container" id="cartContainer">
+        <div class="cart-container">
           <div id="cartItemsList"></div>
           <div id="cartTotal" class="cart-total">Total: GHS 0</div>
         </div>
         <div class="order-form">
           <h3 style="margin-bottom: 18px; text-align: center;">Complete Your Order</h3>
           <div class="form-group"><label>Full Name *</label><input type="text" id="customerName" placeholder="e.g., John Mensah"></div>
-          <div class="form-group"><label>Telephone Number *</label><input type="tel" id="customerPhone" placeholder="e.g., 024XXXXXXX"></div>
-          <div class="form-group"><label>Current Location / Delivery Address *</label><input type="text" id="customerLocation" placeholder="e.g., Ejisu Central"></div>
-          <div class="form-group"><label>Special Instructions (optional)</label><textarea id="orderNotes" rows="3" placeholder="Extra spice, no onions..."></textarea></div>
-          <button class="submit-order" id="placeOrderBtn">Place Order via SMS</button>
+          <div class="form-group"><label>WhatsApp / Telephone *</label><input type="tel" id="customerPhone" placeholder="e.g., 024XXXXXXX"></div>
+          <div class="form-group"><label>Delivery Location *</label><input type="text" id="customerLocation" placeholder="e.g., Ejisu Central"></div>
+          <div class="form-group"><label>Special Instructions</label><textarea id="orderNotes" rows="3" placeholder="Extra spice, no onions..."></textarea></div>
+          <button class="submit-order" id="placeOrderBtn">Place Order via WhatsApp</button>
         </div>
       </div>
     </section>
@@ -556,7 +656,7 @@
           <div class="reviews-stats" id="reviewsStats"></div>
         </div>
         <div class="review-form-modern">
-          <h3 style="text-align: center; margin-bottom: 10px;">Share Your Experience</h3>
+          <h3 style="text-align: center;">Share Your Experience</h3>
           <div class="rating-stars-input" id="starRatingWidget">
             <i class="far fa-star" data-value="1"></i>
             <i class="far fa-star" data-value="2"></i>
@@ -597,7 +697,7 @@
 
   <footer>
     <div class="container">
-      <p>Kiss Kiss Kitchen & Pub | Kumasi-Ejisu | Quality and flavor guaranteed</p>
+      <p>Kiss Kiss Kitchen & Pub | Ejisu, Kumasi | Quality and flavor guaranteed</p>
       <p style="margin-top: 8px;">Order Hotline: 059 559 0891 | Follow us on Instagram & Facebook</p>
     </div>
   </footer>
@@ -613,7 +713,7 @@
     ];
     let customerReviews = [
       { id: 1, name: "Ralph Adjei", rating: 5, text: "Their food is one of the best I have tasted in Ejisu. Fast delivery, friendly front liner.", date: "2025-05-15" },
-      { id: 2, name: "Ama Serwaa", rating: 5, text: "Unforgettable flavors, warm hospitality. The pub ambiance is amazing.", date: "2025-05-10" },
+      { id: 2, name: "Ama Serwaa", rating: 5, text: "Unforgettable flavors, warm hospitality.", date: "2025-05-10" },
       { id: 3, name: "Kofi Mensah", rating: 4, text: "Jollof is heavenly. Highly recommended.", date: "2025-05-12" }
     ];
     let cart = [];
@@ -627,19 +727,21 @@
       const cartDiv = document.getElementById('cartItemsList');
       const totalDiv = document.getElementById('cartTotal');
       const cartCountSpan = document.getElementById('cartCountNav');
+      const sidebarCartCount = document.getElementById('sidebarCartCount');
       if (!cartDiv) return;
-      if (cart.length === 0) { cartDiv.innerHTML = '<p style="text-align:center; padding: 30px;">Your cart is empty. Add delicious items from the menu above.</p>'; if(totalDiv) totalDiv.innerHTML = 'Total: GHS 0'; if(cartCountSpan) cartCountSpan.innerText = '0'; return; }
+      if (cart.length === 0) { cartDiv.innerHTML = '<p style="text-align:center; padding: 30px;">Your cart is empty. Add delicious items from the menu above.</p>'; if(totalDiv) totalDiv.innerHTML = 'Total: GHS 0'; if(cartCountSpan) cartCountSpan.innerText = '0'; if(sidebarCartCount) sidebarCartCount.innerText = '0'; return; }
       let html = '', total = 0;
-      cart.forEach(item => { const itemTotal = item.price * item.quantity; total += itemTotal; html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price} each</small></div><div class="cart-item-quantity"><button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button><span style="min-width:30px;text-align:center;">${item.quantity}</span><button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button><button class="remove-item" data-id="${item.id}">Remove</button></div><div><strong>GHS ${itemTotal}</strong></div></div>`; });
+      cart.forEach(item => { const itemTotal = item.price * item.quantity; total += itemTotal; html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price} each</small></div><div class="cart-item-quantity"><button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button><span>${item.quantity}</span><button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button><button class="remove-item" data-id="${item.id}">Remove</button></div><div><strong>GHS ${itemTotal}</strong></div></div>`; });
       cartDiv.innerHTML = html;
       if(totalDiv) totalDiv.innerHTML = `Total: GHS ${total}`;
       if(cartCountSpan) cartCountSpan.innerText = cart.reduce((s,i)=>s+i.quantity,0);
+      if(sidebarCartCount) sidebarCartCount.innerText = cart.reduce((s,i)=>s+i.quantity,0);
       document.querySelectorAll('.quantity-btn').forEach(btn => { btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); updateQuantity(id, btn.dataset.action); }); });
       document.querySelectorAll('.remove-item').forEach(btn => { btn.addEventListener('click', (e) => { removeItemCompletely(parseInt(btn.dataset.id)); }); });
     }
     function updateQuantity(id, action) { const idx = cart.findIndex(i=>i.id===id); if(idx===-1) return; if(action==='incr') cart[idx].quantity++; else if(action==='decr') { if(cart[idx].quantity>1) cart[idx].quantity--; else cart.splice(idx,1); } saveCart(); }
     function removeItemCompletely(id) { cart = cart.filter(i=>i.id!==id); saveCart(); }
-    function addToCart(productId) { const product = menuItems.find(p=>p.id===productId); if(!product) return; const existing = cart.find(i=>i.id===productId); if(existing) existing.quantity++; else cart.push({ id:product.id, name:product.name, price:product.price, quantity:1 }); saveCart(); alert(`${product.name} added to cart!`); document.getElementById('order-section').scrollIntoView({ behavior:'smooth' }); }
+    function addToCart(productId) { const product = menuItems.find(p=>p.id===productId); if(!product) return; const existing = cart.find(i=>i.id===productId); if(existing) existing.quantity++; else cart.push({ id:product.id, name:product.name, price:product.price, quantity:1 }); saveCart(); alert(`${product.name} added to cart!`); }
     function renderMenu() {
       const grid = document.getElementById('menuGrid');
       if(!grid) return;
@@ -653,8 +755,8 @@
       if(!container) return;
       const avgRating = customerReviews.length ? (customerReviews.reduce((s,r)=>s+r.rating,0)/customerReviews.length).toFixed(1) : 0;
       if(statsContainer) statsContainer.innerHTML = `<div class="stat-card"><i class="fas fa-star"></i><div><span class="stat-number">${avgRating}</span><br>Rating</div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-number">${customerReviews.length}</span><br>Reviews</div></div>`;
-      if(customerReviews.length === 0) { container.innerHTML = '<div class="empty-reviews" style="text-align:center;padding:40px;">No reviews yet. Be the first!</div>'; return; }
-      container.innerHTML = customerReviews.map(rev => `<div class="review-card-modern"><div class="review-card-header"><div style="display:flex;gap:12px;"><div class="reviewer-avatar">${rev.name.charAt(0).toUpperCase()}</div><div class="reviewer-info"><h4>${escapeHtml(rev.name)}</h4><div class="review-date">${rev.date || 'Recent'}</div></div></div><div class="review-stars-modern">${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div></div><div class="review-text-modern">"${escapeHtml(rev.text)}"</div></div>`).join('');
+      if(customerReviews.length === 0) { container.innerHTML = '<div style="text-align:center;padding:40px;">No reviews yet.</div>'; return; }
+      container.innerHTML = customerReviews.map(rev => `<div class="review-card-modern"><div style="display:flex;justify-content:space-between;margin-bottom:12px;"><div><strong>${escapeHtml(rev.name)}</strong><br><small>${rev.date}</small></div><div>${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div></div><div>"${escapeHtml(rev.text)}"</div></div>`).join('');
     }
     let currentRating = 0;
     function initStarWidget() {
@@ -708,7 +810,7 @@
       const totalAmount = cart.reduce((s,i)=>s+(i.price*i.quantity),0);
       const message = `NEW ORDER from ${name}%0ATel: ${phone}%0ALocation: ${location}%0AItems: ${orderSummary}%0ATotal: GHS ${totalAmount}%0ANotes: ${notes || "None"}%0APlease confirm delivery. Kiss Kiss Kitchen.`;
       if(confirm(`Confirm order?\n${orderSummary}\nTotal: GHS ${totalAmount}`)) {
-        window.location.href = `sms:0595590891?body=${message}`;
+        window.location.href = `https://wa.me/233559559089?text=${message}`;
         const ordersHistory = JSON.parse(localStorage.getItem('kissOrdersHistory') || '[]');
         ordersHistory.push({ timestamp: new Date().toISOString(), customer: { name, phone, location, notes }, items: [...cart], total: totalAmount });
         localStorage.setItem('kissOrdersHistory', JSON.stringify(ordersHistory));
@@ -716,9 +818,45 @@
       }
     }
     
+    // Hamburger Menu Functions
+    function openMenu() {
+      document.getElementById('sidebarMenu').classList.add('open');
+      document.getElementById('menuOverlay').classList.add('active');
+      document.getElementById('hamburgerBtn').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeMenu() {
+      document.getElementById('sidebarMenu').classList.remove('open');
+      document.getElementById('menuOverlay').classList.remove('active');
+      document.getElementById('hamburgerBtn').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function toggleMenu() {
+      if (document.getElementById('sidebarMenu').classList.contains('open')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    }
+    
+    document.getElementById('hamburgerBtn')?.addEventListener('click', toggleMenu);
+    document.getElementById('closeMenuBtn')?.addEventListener('click', closeMenu);
+    document.getElementById('menuOverlay')?.addEventListener('click', closeMenu);
+    document.querySelectorAll('.menu-stack-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        const section = item.dataset.section;
+        if (section === 'home') document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+        if (section === 'menu') document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        if (section === 'order') document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+        if (section === 'reviews') document.getElementById('reviews-section').scrollIntoView({ behavior: 'smooth' });
+        if (section === 'owner') document.getElementById('owner-section').scrollIntoView({ behavior: 'smooth' });
+        closeMenu();
+      });
+    });
+    document.getElementById('sidebarOrderBtn')?.addEventListener('click', () => { closeMenu(); document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }); });
     document.getElementById('heroMenuBtn')?.addEventListener('click', () => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }));
+    document.getElementById('heroOrderBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
     document.getElementById('cartIconBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
-    document.getElementById('headerOrderBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
     document.getElementById('placeOrderBtn')?.addEventListener('click', placeOrder);
     document.getElementById('unlockOwnerBtn')?.addEventListener('click', unlockOwner);
     document.getElementById('lockPanelBtn')?.addEventListener('click', lockPanel);
@@ -731,3 +869,4 @@
   </script>
 </body>
 </html>
+```
