@@ -1,14 +1,12 @@
-Here is the updated HTML document with the customer review section completely removed, along with the admin panel eliminated and ordering simplified to SMS only.
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Kiss Kiss Kitchen & Pub | Order via SMS</title>
+  <title>Kiss Kiss Kitchen & Pub | Premium Menu Slider</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
     * {
@@ -28,6 +26,7 @@ Here is the updated HTML document with the customer review section completely re
       --warm-cream: #fff6ed;
       --crimson-accent: #b85c38;
       --kiss-pink: #d44c6c;
+      --deep-ebony: #1e1712;
     }
     h1, h2, h3, .logo {
       font-family: 'Cormorant Garamond', serif;
@@ -49,7 +48,7 @@ Here is the updated HTML document with the customer review section completely re
       top: 0;
       z-index: 1000;
       border-bottom: 1px solid rgba(201, 160, 61, 0.3);
-      padding: 14px 0;
+      padding: 12px 0;
     }
     .header-flex {
       display: flex;
@@ -64,9 +63,7 @@ Here is the updated HTML document with the customer review section completely re
       text-decoration: none;
       letter-spacing: 1px;
     }
-    .logo span {
-      color: var(--kiss-pink);
-    }
+    .logo span { color: var(--kiss-pink); }
     .tagline-sm {
       font-size: 9px;
       letter-spacing: 2px;
@@ -74,60 +71,25 @@ Here is the updated HTML document with the customer review section completely re
       margin-top: 2px;
     }
     
-    /* Hamburger Button */
-    .hamburger {
+    /* Hamburger & Cart */
+    .hamburger, .cart-icon-header {
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(201,160,61,0.3);
       cursor: pointer;
-      padding: 12px 14px;
+      padding: 10px 14px;
       border-radius: 50px;
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
       transition: 0.3s;
-      z-index: 1002;
     }
-    .hamburger:hover {
-      background: rgba(201,160,61,0.2);
-    }
+    .hamburger { display: flex; flex-direction: column; gap: 5px; }
     .hamburger span {
       display: block;
-      width: 24px;
+      width: 22px;
       height: 2px;
       background: var(--rich-gold);
       transition: 0.3s;
-      border-radius: 2px;
     }
-    .hamburger.active span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 5px);
-    }
-    .hamburger.active span:nth-child(2) {
-      opacity: 0;
-    }
-    .hamburger.active span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -5px);
-    }
-    
-    /* Cart Icon */
-    .cart-icon-header {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(201,160,61,0.3);
-      padding: 10px 14px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      cursor: pointer;
-      transition: 0.3s;
-      position: relative;
-    }
-    .cart-icon-header:hover {
-      background: rgba(201,160,61,0.2);
-    }
-    .cart-icon-header i {
-      font-size: 18px;
-      color: var(--rich-gold);
-    }
+    .cart-icon-header { display: flex; align-items: center; gap: 8px; }
+    .cart-icon-header i { font-size: 18px; color: var(--rich-gold); }
     .cart-count-header {
       background: var(--kiss-pink);
       color: white;
@@ -138,15 +100,10 @@ Here is the updated HTML document with the customer review section completely re
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
     }
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
+    .header-right { display: flex; align-items: center; gap: 12px; }
     
-    /* Sidebar Hamburger Menu */
+    /* Sidebar */
     .sidebar-menu {
       position: fixed;
       top: 0;
@@ -160,12 +117,9 @@ Here is the updated HTML document with the customer review section completely re
       padding: 100px 28px 40px;
       box-shadow: -5px 0 30px rgba(0,0,0,0.5);
       border-left: 1px solid rgba(201,160,61,0.3);
-      overflow-y: auto;
     }
-    .sidebar-menu.open {
-      right: 0;
-    }
-    .sidebar-menu .close-btn {
+    .sidebar-menu.open { right: 0; }
+    .close-btn {
       position: absolute;
       top: 20px;
       right: 20px;
@@ -177,67 +131,34 @@ Here is the updated HTML document with the customer review section completely re
       padding: 8px 12px;
       border-radius: 50px;
     }
-    
-    .menu-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
-      width: 100%;
-    }
+    .menu-stack { display: flex; flex-direction: column; gap: 20px; }
     .menu-stack-item {
       display: flex;
       align-items: center;
-      gap: 20px;
-      padding: 14px 20px;
+      gap: 18px;
+      padding: 12px 20px;
       background: rgba(255,255,255,0.04);
       border-radius: 60px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: 0.3s;
       border: 1px solid rgba(201,160,61,0.2);
     }
-    .menu-stack-item:hover {
-      background: rgba(201,160,61,0.15);
-      border-color: var(--rich-gold);
-      transform: translateX(8px);
-    }
-    .menu-stack-item i {
-      font-size: 26px;
-      width: 40px;
-      color: var(--rich-gold);
-      text-align: center;
-    }
-    .menu-stack-item span {
-      font-size: 18px;
-      font-weight: 500;
-      color: var(--warm-cream);
-      letter-spacing: 0.5px;
-    }
-    .menu-stack-item .badge {
-      background: var(--kiss-pink);
-      border-radius: 50px;
-      padding: 2px 10px;
-      font-size: 12px;
-      margin-left: auto;
-    }
-    
+    .menu-stack-item:hover { background: rgba(201,160,61,0.15); transform: translateX(5px); }
+    .menu-stack-item i { font-size: 22px; width: 36px; color: var(--rich-gold); }
+    .menu-stack-item span { font-size: 16px; font-weight: 500; color: var(--warm-cream); }
     .sidebar-order-btn {
-      background: linear-gradient(135deg, var(--rich-gold) 0%, #b58b30 100%);
+      background: linear-gradient(135deg, var(--rich-gold), #b58b30);
       border: none;
-      padding: 16px;
+      padding: 14px;
       border-radius: 60px;
-      font-weight: 700;
-      font-size: 16px;
-      color: #1e1712;
-      cursor: pointer;
-      transition: 0.3s;
+      font-weight: bold;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 10px;
       margin-top: 20px;
-      width: 100%;
+      cursor: pointer;
     }
-    
     .menu-overlay {
       position: fixed;
       top: 0;
@@ -250,10 +171,7 @@ Here is the updated HTML document with the customer review section completely re
       visibility: hidden;
       transition: 0.3s;
     }
-    .menu-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
+    .menu-overlay.active { opacity: 1; visibility: visible; }
     
     /* Hero */
     .hero {
@@ -262,12 +180,7 @@ Here is the updated HTML document with the customer review section completely re
       display: flex;
       align-items: center;
     }
-    .hero-content {
-      max-width: 700px;
-      padding: 140px 0 80px;
-      text-align: center;
-      margin: 0 auto;
-    }
+    .hero-content { max-width: 700px; padding: 140px 0 80px; text-align: center; margin: 0 auto; }
     .hero-badge {
       background: rgba(201,160,61,0.2);
       backdrop-filter: blur(6px);
@@ -279,50 +192,23 @@ Here is the updated HTML document with the customer review section completely re
       font-size: 12px;
       letter-spacing: 2px;
     }
-    .hero h1 {
-      font-size: 52px;
-      color: var(--warm-cream);
-      line-height: 1.2;
-      margin-bottom: 24px;
-    }
-    .hero p {
-      font-size: 18px;
-      color: #f3e9dc;
-      margin-bottom: 40px;
-    }
-    .hero-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-    .btn-hero {
-      background: linear-gradient(135deg, var(--rich-gold) 0%, #b58b30 100%);
-      border: none;
+    .hero h1 { font-size: 52px; color: var(--warm-cream); line-height: 1.2; margin-bottom: 16px; }
+    .btn-hero, .btn-hero-outline {
       padding: 14px 38px;
       border-radius: 50px;
       font-weight: 700;
       font-size: 16px;
-      color: #1e1712;
       cursor: pointer;
+      transition: 0.3s;
     }
-    .btn-hero-outline {
-      background: transparent;
-      border: 1px solid var(--rich-gold);
-      padding: 14px 38px;
-      border-radius: 50px;
-      font-weight: 700;
-      font-size: 16px;
-      color: var(--rich-gold);
-      cursor: pointer;
-    }
+    .btn-hero { background: linear-gradient(135deg, var(--rich-gold), #b58b30); border: none; color: #1e1712; }
+    .btn-hero-outline { background: transparent; border: 1px solid var(--rich-gold); color: var(--rich-gold); }
     
-    /* Sections */
     .section { padding: 80px 0; }
     .section-dark { background: #fef7ef; }
     .section-light { background: #ffffff; }
     .section-title {
-      font-size: 42px;
+      font-size: 48px;
       text-align: center;
       margin-bottom: 20px;
       color: #2c2418;
@@ -330,65 +216,233 @@ Here is the updated HTML document with the customer review section completely re
     .section-title:after {
       content: '';
       display: block;
-      width: 70px;
+      width: 80px;
       height: 3px;
       background: var(--kiss-pink);
       margin: 15px auto 0;
       border-radius: 3px;
     }
     
-    .menu-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-    .menu-card {
+    /* ========== PREMIUM MENU SLIDER ========== */
+    .slider-container {
+      position: relative;
+      max-width: 1100px;
+      margin: 50px auto 0;
+      border-radius: 32px;
+      overflow: hidden;
       background: white;
-      border-radius: 28px;
-      text-align: center;
-      padding: 28px 16px;
-      border: 1px solid #f0e2d0;
-      transition: all 0.3s ease;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.15);
     }
-    .menu-card:hover { transform: translateY(-5px); border-color: var(--kiss-pink); }
-    .menu-icon { font-size: 48px; color: var(--kiss-pink); margin-bottom: 16px; }
-    .menu-card h3 { font-size: 24px; margin-bottom: 8px; }
-    .menu-card p { color: #6b5a48; font-size: 13px; margin-bottom: 16px; }
-    .price { font-size: 20px; font-weight: 700; color: var(--crimson-accent); margin-bottom: 16px; }
-    .add-to-cart-btn {
-      background: var(--rich-gold);
-      border: none;
-      padding: 10px 20px;
-      border-radius: 40px;
-      font-weight: 600;
-      cursor: pointer;
+    .slider-track {
+      position: relative;
       width: 100%;
-      max-width: 160px;
-      margin: 0 auto;
-      display: block;
+      overflow: hidden;
+    }
+    .slider-slides {
+      display: flex;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .slider-slide {
+      min-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Image Section - Place your food photos here */
+    .slide-image {
+      width: 100%;
+      height: 380px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      background-color: #f0e2d0; /* Fallback color while image loads */
+    }
+    /* Image placeholder hint - visible to website owner only */
+    .image-placeholder-hint {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.6);
+      color: #ffcc00;
+      font-size: 10px;
+      padding: 4px 8px;
+      border-radius: 20px;
+      font-family: monospace;
+      pointer-events: none;
+      z-index: 5;
+    }
+    /* Content Section */
+    .slide-content {
+      padding: 40px 48px 48px;
+      background: white;
+      text-align: left;
+    }
+    .dish-category {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: var(--kiss-pink);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .slide-content h3 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #2c2418;
+      margin-bottom: 16px;
+      font-family: 'Cormorant Garamond', serif;
+    }
+    .dish-description {
+      font-size: 16px;
+      line-height: 1.7;
+      color: #5a4a38;
+      margin-bottom: 28px;
+      max-width: 90%;
+    }
+    .dish-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      border-top: 1px solid #f0e2d0;
+      padding-top: 28px;
+    }
+    .dish-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--crimson-accent);
+    }
+    .order-now-slider {
+      background: linear-gradient(135deg, var(--rich-gold), #b58b30);
+      border: none;
+      padding: 14px 38px;
+      border-radius: 50px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #1e1712;
+      cursor: pointer;
+      transition: 0.3s;
+      letter-spacing: 1px;
+    }
+    .order-now-slider:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 20px rgba(201,160,61,0.3);
+    }
+    .slider-btn {
+      position: absolute;
+      top: 45%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      color: white;
+      border: none;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 10;
+      transition: 0.3s;
+    }
+    .slider-btn:hover {
+      background: var(--rich-gold);
+      color: #1e1712;
+    }
+    .slider-btn.prev { left: 20px; }
+    .slider-btn.next { right: 20px; }
+    .slider-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 20px 0 24px;
+      background: white;
+    }
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ddd;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .dot.active {
+      background: var(--kiss-pink);
+      width: 28px;
+      border-radius: 20px;
     }
     
-    /* Cart & Order */
+    /* Reviews Section */
+    .reviews-container {
+      background: linear-gradient(135deg, #fff8f0, #ffffff);
+      border-radius: 48px;
+      padding: 50px 40px;
+      margin-top: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+    .reviews-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .stat-card {
+      background: white;
+      padding: 15px 30px;
+      border-radius: 60px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .stat-card i { font-size: 32px; color: var(--rich-gold); }
+    .stat-number { font-size: 32px; font-weight: 800; color: var(--kiss-pink); }
+    .reviews-slider {
+      position: relative;
+      overflow: hidden;
+    }
+    .reviews-track {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    .review-card {
+      min-width: 100%;
+      padding: 0 20px;
+    }
+    .review-inner {
+      background: white;
+      border-radius: 32px;
+      padding: 35px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+    .review-stars { color: var(--rich-gold); font-size: 22px; letter-spacing: 4px; margin-bottom: 20px; }
+    .review-text { font-size: 17px; line-height: 1.6; color: #3a2e26; font-style: italic; margin-bottom: 25px; max-width: 80%; margin-left: auto; margin-right: auto; }
+    .reviewer-name { font-weight: 700; font-size: 18px; color: var(--kiss-pink); }
+    .review-dots { display: flex; justify-content: center; gap: 12px; margin-top: 30px; }
+    .review-dot { width: 8px; height: 8px; border-radius: 50%; background: #ccc; cursor: pointer; transition: 0.3s; }
+    .review-dot.active { background: var(--rich-gold); width: 24px; border-radius: 20px; }
+    
+    /* Cart Section */
     .cart-container, .order-form {
       background: white;
-      border-radius: 28px;
-      padding: 24px;
+      border-radius: 32px;
+      padding: 28px;
       margin-top: 30px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
       border: 1px solid #eddabc;
     }
     .cart-item {
       display: flex;
-      flex-direction: column;
-      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
       padding: 15px 0;
       border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+      gap: 10px;
     }
-    @media (min-width: 600px) {
-      .cart-item { flex-direction: row; justify-content: space-between; align-items: center; }
-    }
-    .cart-item-quantity { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+    .cart-item-quantity { display: flex; align-items: center; gap: 12px; }
     .quantity-btn {
       background: #f0e2d0;
       border: none;
@@ -398,22 +452,13 @@ Here is the updated HTML document with the customer review section completely re
       font-weight: bold;
       cursor: pointer;
     }
-    .remove-item {
-      background: #dc3545;
-      color: white;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 12px;
-    }
-    .cart-total { text-align: right; font-size: 22px; font-weight: bold; margin: 20px 0; }
+    .remove-item { background: #dc3545; color: white; border: none; padding: 6px 14px; border-radius: 30px; cursor: pointer; font-size: 12px; }
+    .cart-total { text-align: right; font-size: 24px; font-weight: 800; margin: 20px 0; }
     .form-group { margin-bottom: 18px; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 6px; }
     .form-group input, .form-group textarea {
       width: 100%;
-      padding: 12px 16px;
-      border-radius: 28px;
+      padding: 14px 18px;
+      border-radius: 30px;
       border: 1px solid #e2d4c4;
       font-family: 'Inter', sans-serif;
     }
@@ -421,45 +466,65 @@ Here is the updated HTML document with the customer review section completely re
       background: var(--kiss-pink);
       color: white;
       border: none;
-      padding: 14px;
-      border-radius: 40px;
+      padding: 16px;
+      border-radius: 50px;
       font-weight: bold;
       font-size: 16px;
       cursor: pointer;
       width: 100%;
     }
+    .sms-number-large { font-size: 32px; font-weight: bold; background: linear-gradient(135deg, #f5e2b6, #c9a03d); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .copy-btn { background: var(--rich-gold); border: none; padding: 10px 24px; border-radius: 40px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     
-    .sms-number-large {
-      font-size: 36px;
-      font-weight: bold;
-      background: linear-gradient(135deg, #f5e2b6, #c9a03d);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      letter-spacing: 2px;
-    }
-    .copy-btn {
-      background: var(--rich-gold);
-      border: none;
-      padding: 10px 24px;
-      border-radius: 40px;
-      font-weight: bold;
+    /* Floating Cart */
+    .fab-cart {
+      position: fixed;
+      bottom: 30px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--kiss-pink), #b8405c);
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
       cursor: pointer;
-      margin-top: 10px;
+      z-index: 99;
+      transition: 0.3s;
+    }
+    .fab-cart i { font-size: 24px; color: white; }
+    .fab-cart .fab-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: var(--rich-gold);
+      color: #1e1712;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
     }
     
-    footer {
-      background: #0c0907;
-      padding: 40px 0 25px;
-      color: #b7a07e;
-      text-align: center;
-      font-size: 13px;
-    }
+    footer { background: #0c0907; padding: 40px 0 25px; color: #b7a07e; text-align: center; font-size: 13px; }
     
+    @media (max-width: 800px) {
+      .slide-image { height: 280px; }
+      .slide-content { padding: 28px 24px 32px; }
+      .slide-content h3 { font-size: 28px; }
+      .dish-description { font-size: 14px; max-width: 100%; }
+      .dish-price { font-size: 26px; }
+      .order-now-slider { padding: 10px 24px; font-size: 14px; }
+      .section-title { font-size: 36px; }
+    }
     @media (max-width: 550px) {
-      .hero h1 { font-size: 42px; }
-      .section-title { font-size: 34px; }
-      .sms-number-large { font-size: 28px; }
+      .slide-image { height: 220px; }
+      .slide-content h3 { font-size: 24px; }
+      .dish-footer { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -467,88 +532,66 @@ Here is the updated HTML document with the customer review section completely re
   <header>
     <div class="container">
       <div class="header-flex">
-        <div>
-          <a href="#" class="logo">Kiss Kiss <span>Kitchen & Pub</span></a>
-          <div class="tagline-sm">EJISU · KUMASI</div>
-        </div>
-        <div class="header-right">
-          <div class="cart-icon-header" id="cartIconBtn">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count-header" id="cartCountNav">0</span>
-          </div>
-          <div class="hamburger" id="hamburgerBtn">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
+        <div><a href="#" class="logo">Kiss Kiss <span>Kitchen & Pub</span></a><div class="tagline-sm">EJISU · KUMASI</div></div>
+        <div class="header-right"><div class="cart-icon-header" id="cartIconBtn"><i class="fas fa-shopping-cart"></i><span class="cart-count-header" id="cartCountNav">0</span></div><div class="hamburger" id="hamburgerBtn"><span></span><span></span><span></span></div></div>
       </div>
     </div>
   </header>
 
-  <!-- Sidebar Hamburger Menu -->
-  <div class="sidebar-menu" id="sidebarMenu">
-    <button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button>
-    <div class="menu-stack">
-      <div class="menu-stack-item" data-section="home">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-      </div>
-      <div class="menu-stack-item" data-section="menu">
-        <i class="fas fa-utensils"></i>
-        <span>Menu</span>
-      </div>
-      <div class="menu-stack-item" data-section="order">
-        <i class="fas fa-shopping-cart"></i>
-        <span>Your Cart</span>
-        <span class="badge" id="sidebarCartCount">0</span>
-      </div>
-      <button class="sidebar-order-btn" id="sidebarOrderBtn">
-        <i class="fas fa-sms"></i> Order via SMS
-      </button>
-    </div>
-  </div>
+  <div class="fab-cart" id="fabCart"><i class="fas fa-shopping-bag"></i><span class="fab-count" id="fabCount">0</span></div>
+
+  <div class="sidebar-menu" id="sidebarMenu"><button class="close-btn" id="closeMenuBtn"><i class="fas fa-times"></i></button><div class="menu-stack"><div class="menu-stack-item" data-section="home"><i class="fas fa-home"></i><span>Home</span></div><div class="menu-stack-item" data-section="menu"><i class="fas fa-utensils"></i><span>Menu Slider</span></div><div class="menu-stack-item" data-section="reviews"><i class="fas fa-star"></i><span>Reviews</span></div><div class="menu-stack-item" data-section="order"><i class="fas fa-shopping-cart"></i><span>Your Cart</span></div><button class="sidebar-order-btn" id="sidebarOrderBtn"><i class="fas fa-sms"></i> Order via SMS</button></div></div>
   <div class="menu-overlay" id="menuOverlay"></div>
 
   <main>
     <section id="home" class="hero">
+      <div class="container"><div class="hero-content"><div class="hero-badge">NOW OPEN · EJISU, KUMASI</div><h1>FAST.<br>FRESH.<br>WORTH THE WAIT.</h1><p>Ejisu's most-loved spot for famous jollof, juicy kebabs, local dishes and chilled vibes.</p><div class="hero-buttons"><button class="btn-hero" id="heroOrderBtn">Order via SMS</button><button class="btn-hero-outline" id="heroMenuBtn">View Menu Slider</button></div></div></div>
+    </section>
+
+    <!-- Premium Menu Slider - ADD YOUR FOOD PICTURES HERE -->
+    <section id="menu" class="section section-dark">
       <div class="container">
-        <div class="hero-content">
-          <div class="hero-badge">NOW OPEN · EJISU, KUMASI</div>
-          <h1>FAST.<br>FRESH.<br>WORTH THE WAIT.</h1>
-          <p>Ejisu's most-loved spot for famous jollof, juicy kebabs, local dishes & chilled vibes. Dine-in or delivery — starting at GHS 45.</p>
-          <div class="hero-buttons">
-            <button class="btn-hero" id="heroOrderBtn">Order via SMS</button>
-            <button class="btn-hero-outline" id="heroMenuBtn">View Menu</button>
+        <h2 class="section-title">Our Signature Collection</h2>
+        <div class="slider-container">
+          <div class="slider-track">
+            <button class="slider-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <button class="slider-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            <div class="slider-slides" id="sliderSlides"></div>
+          </div>
+          <div class="slider-dots" id="sliderDots"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section id="reviews" class="section section-light">
+      <div class="container">
+        <h2 class="section-title">Customer Love</h2>
+        <div class="reviews-container">
+          <div class="reviews-stats" id="reviewsStats"></div>
+          <div class="reviews-slider">
+            <div class="reviews-track" id="reviewsTrack"></div>
+            <div class="review-dots" id="reviewDots"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="menu" class="section section-dark">
-      <div class="container">
-        <h2 class="section-title">Our Signature Dishes</h2>
-        <div class="menu-grid" id="menuGrid"></div>
-      </div>
-    </section>
-
-    <section id="order-section" class="section section-light">
+    <!-- Cart Section -->
+    <section id="order-section" class="section section-dark">
       <div class="container">
         <h2 class="section-title">Your Order Cart</h2>
-        <div class="cart-container">
-          <div id="cartItemsList"></div>
-          <div id="cartTotal" class="cart-total">Total: GHS 0</div>
-        </div>
+        <div class="cart-container"><div id="cartItemsList"></div><div id="cartTotal" class="cart-total">Total: GHS 0</div></div>
         <div class="order-form">
-          <h3 style="margin-bottom: 18px; text-align: center;">Complete Your Order via SMS</h3>
+          <h3 style="margin-bottom: 18px; text-align: center;">Complete Your Order</h3>
           <div class="form-group"><label>Full Name *</label><input type="text" id="customerName" placeholder="e.g., John Mensah"></div>
           <div class="form-group"><label>Telephone Number *</label><input type="tel" id="customerPhone" placeholder="e.g., 024XXXXXXX"></div>
           <div class="form-group"><label>Delivery Location *</label><input type="text" id="customerLocation" placeholder="e.g., Ejisu Central"></div>
-          <div class="form-group"><label>Special Instructions (optional)</label><textarea id="orderNotes" rows="3" placeholder="Extra spice, no onions..."></textarea></div>
+          <div class="form-group"><label>Special Instructions</label><textarea id="orderNotes" rows="2" placeholder="Extra spice, no onions..."></textarea></div>
           <button class="submit-order" id="placeOrderBtn"><i class="fas fa-sms"></i> Send Order via SMS</button>
         </div>
         <div style="text-align: center; margin-top: 30px; padding: 20px; background: #fef7ef; border-radius: 28px;">
-          <p style="margin-bottom: 10px;">Or text us directly at:</p>
+          <p>Or text us directly at:</p>
           <div class="sms-number-large">059 559 0891</div>
           <button class="copy-btn" id="copyNumberBtn"><i class="fas fa-copy"></i> Copy Number</button>
         </div>
@@ -556,212 +599,211 @@ Here is the updated HTML document with the customer review section completely re
     </section>
   </main>
 
-  <footer>
-    <div class="container">
-      <p>Kiss Kiss Kitchen & Pub | Ejisu, Kumasi | Quality and flavor guaranteed</p>
-      <p style="margin-top: 8px;">Order SMS: 059 559 0891 | Follow us on Instagram & Facebook</p>
-    </div>
-  </footer>
+  <footer><div class="container"><p>Kiss Kiss Kitchen & Pub | Ejisu, Kumasi | Quality and flavor guaranteed</p><p style="margin-top: 8px;">Order SMS: 059 559 0891 | Follow us on Instagram & Facebook</p></div></footer>
 
   <script>
-    // Menu Data
-    let menuItems = [
-      { id: 1, name: "Jollof Rice", desc: "Smoky tomato richness, authentic spices", icon: "fas fa-utensils", price: 45 },
-      { id: 2, name: "Fried Rice", desc: "Wok-tossed vegetables & aromatic herbs", icon: "fas fa-fire", price: 40 },
-      { id: 3, name: "Curry Rice", desc: "Golden coconut curry, exotic spices", icon: "fas fa-leaf", price: 48 },
-      { id: 4, name: "Vegetable Rice", desc: "Garden fresh medley", icon: "fas fa-seedling", price: 38 },
-      { id: 5, name: "Grilled Chicken & Chips", desc: "Crispy outside, juicy inside", icon: "fas fa-drumstick-bite", price: 65 },
-      { id: 6, name: "Banku with Tilapia", desc: "Traditional fermented corn dough with grilled tilapia", icon: "fas fa-fish", price: 55 }
+    // ============================================================
+    // 🔴 IMPORTANT: ADD YOUR OWN FOOD PICTURES HERE 🔴
+    // Replace the image URLs below with your own food photos.
+    // You can use images from your phone gallery, upload to Imgur,
+    // or use local paths like "images/sweet-potatoes.jpg"
+    // ============================================================
+    
+    // MENU ITEMS - Add your images in the "img" field below
+    const menuItems = [
+      { 
+        id: 1, 
+        name: "Sweet Potatoes", 
+        category: "WHOLESOME SIDE",
+        price: 35, 
+        // 👇 REPLACE THIS URL WITH YOUR SWEET POTATOES PHOTO
+        img: "sweet_potato",
+        description: "The perfect wholesome break from rice. These are deliciously prepared sweet potatoes, offering a warm, satisfying side that hits different. We wanted a side that was both satisfying and smart. Sweet potatoes offer complex carbohydrates and powerful Vitamin A, giving you sustained energy without sacrificing comfort."
+      },
+      { 
+        id: 2, 
+        name: "Chicken & Wings", 
+        category: "SIGNATURE DISH",
+        price: 65, 
+        // 👇 REPLACE THIS URL WITH YOUR CHICKEN & WINGS PHOTO
+        img: "chicken_wings",
+        description: "Chicken marinated for 24 hours in our secret blend, then fried to a golden-brown, crispy perfection that seals in the juiciness. Born from the simple goal: to create the crispiest, juiciest chicken in Ghana, the undisputed champion that makes every meal a feast."
+      },
+      { 
+        id: 3, 
+        name: "Jollof Rice", 
+        category: "RICE SPECIAL",
+        price: 45, 
+        // 👇 REPLACE THIS URL WITH YOUR JOLLOF RICE PHOTO
+        img: "jollof",
+        description: "Legendary smoky tomato richness infused with authentic Ghanaian spices and buttery aroma. The city's most celebrated dish, cooked to perfection with our family recipe passed down for generations. Each grain tells a story of flavor."
+      },
+      { 
+        id: 4, 
+        name: "Banku & Tilapia", 
+        category: "LOCAL DELIGHT",
+        price: 55, 
+        // 👇 REPLACE THIS URL WITH YOUR BANKU & TILAPIA PHOTO
+        img: "banku",
+        description: "Traditional fermented corn dough served with grilled tilapia, fresh pepper sauce, and garden vegetables. An authentic Ghanaian experience that brings the taste of home to your table. A true crowd favorite."
+      },
+      { 
+        id: 5, 
+        name: "Fried Rice", 
+        category: "RICE SPECIAL",
+        price: 40, 
+        // 👇 REPLACE THIS URL WITH YOUR FRIED RICE PHOTO
+        img: "fried",
+        description: "Wok-tossed perfection with seasonal vegetables, aromatic herbs, and a whisper of sesame. Each grain is separate and flavorful, making it a crowd favorite for those who appreciate finesse in every bite."
+      },
+      { 
+        id: 6, 
+        name: "Grilled Chicken", 
+        category: "GRILL SPECIAL",
+        price: 60, 
+        // 👇 REPLACE THIS URL WITH YOUR GRILLED CHICKEN PHOTO
+        img: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=1000&h=400&fit=crop",
+        description: "Succulent chicken marinated in our signature spice blend, grilled to perfection over open flame. Served with choice of sauce and side salad."
+      }
+    ];
+
+    // ============================================================
+    // CUSTOMER REVIEWS - You can add more or edit existing ones
+    // ============================================================
+    const reviewsData = [
+      { id: 1, name: "Ralph Adjei", rating: 5, text: "Their food is one of the best I have tasted in Ejisu. Fast delivery, friendly front liner. The chicken wings are absolutely phenomenal.", title: "Verified Customer" },
+      { id: 2, name: "Ama Serwaa", rating: 5, text: "Unforgettable flavors, warm hospitality. The pub ambiance is amazing. Best jollof in Kumasi hands down.", title: "Food Enthusiast" },
+      { id: 3, name: "Kofi Mensah", rating: 4, text: "Jollof is heavenly. Highly recommended for anyone who loves authentic Ghanaian taste. Will definitely order again.", title: "Regular Customer" }
     ];
 
     let cart = [];
     const BUSINESS_NUMBER = "0595590891";
+    let currentSlide = 0;
+    let currentReview = 0;
+    let autoSlideInterval;
+    let autoReviewInterval;
 
-    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m) { if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
-    
     function saveCart() { localStorage.setItem('kissCart', JSON.stringify(cart)); updateCartUI(); }
     function loadCart() { const saved = localStorage.getItem('kissCart'); if(saved) { try { cart = JSON.parse(saved); } catch(e) { cart = []; } } else { cart = []; } updateCartUI(); }
-    
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+
     function updateCartUI() {
       const cartDiv = document.getElementById('cartItemsList');
       const totalDiv = document.getElementById('cartTotal');
-      const cartCountSpan = document.getElementById('cartCountNav');
-      const sidebarCartCount = document.getElementById('sidebarCartCount');
+      const cartCountNav = document.getElementById('cartCountNav');
+      const fabCount = document.getElementById('fabCount');
       if (!cartDiv) return;
-      if (cart.length === 0) { 
-        cartDiv.innerHTML = '<p style="text-align:center; padding: 30px;">Your cart is empty. Add delicious items from the menu above.</p>'; 
-        if(totalDiv) totalDiv.innerHTML = 'Total: GHS 0'; 
-        if(cartCountSpan) cartCountSpan.innerText = '0';
-        if(sidebarCartCount) sidebarCartCount.innerText = '0';
-        return; 
-      }
+      const totalQty = cart.reduce((s,i)=>s+i.quantity,0);
+      if(cartCountNav) cartCountNav.innerText = totalQty;
+      if(fabCount) fabCount.innerText = totalQty;
+      if (cart.length === 0) { cartDiv.innerHTML = '<p style="text-align:center; padding: 30px;">Your cart is empty. Add delicious items from our menu slider.</p>'; if(totalDiv) totalDiv.innerHTML = 'Total: GHS 0'; return; }
       let html = '', total = 0;
-      cart.forEach(item => { 
-        const itemTotal = item.price * item.quantity; 
-        total += itemTotal; 
-        html += `<div class="cart-item">
-          <div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price} each</small></div>
-          <div class="cart-item-quantity">
-            <button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button>
-            <span>${item.quantity}</span>
-            <button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button>
-            <button class="remove-item" data-id="${item.id}">Remove</button>
-          </div>
-          <div><strong>GHS ${itemTotal}</strong></div>
-        </div>`; 
-      });
+      cart.forEach(item => { const itemTotal = item.price * item.quantity; total += itemTotal; html += `<div class="cart-item"><div><strong>${escapeHtml(item.name)}</strong><br><small>GHS ${item.price}</small></div><div class="cart-item-quantity"><button class="quantity-btn" data-action="decr" data-id="${item.id}">-</button><span>${item.quantity}</span><button class="quantity-btn" data-action="incr" data-id="${item.id}">+</button><button class="remove-item" data-id="${item.id}">Remove</button></div><div><strong>GHS ${itemTotal}</strong></div></div>`; });
       cartDiv.innerHTML = html;
       if(totalDiv) totalDiv.innerHTML = `Total: GHS ${total}`;
-      if(cartCountSpan) cartCountSpan.innerText = cart.reduce((s,i)=>s+i.quantity,0);
-      if(sidebarCartCount) sidebarCartCount.innerText = cart.reduce((s,i)=>s+i.quantity,0);
-      
-      document.querySelectorAll('.quantity-btn').forEach(btn => { 
-        btn.addEventListener('click', (e) => { 
-          const id = parseInt(btn.dataset.id); 
-          updateQuantity(id, btn.dataset.action); 
-        }); 
-      });
-      document.querySelectorAll('.remove-item').forEach(btn => { 
-        btn.addEventListener('click', (e) => { 
-          removeItemCompletely(parseInt(btn.dataset.id)); 
-        }); 
-      });
+      document.querySelectorAll('.quantity-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); updateQuantity(id, btn.dataset.action); }));
+      document.querySelectorAll('.remove-item').forEach(btn => btn.addEventListener('click', (e) => { removeItemCompletely(parseInt(btn.dataset.id)); }));
     }
-    
-    function updateQuantity(id, action) { 
-      const idx = cart.findIndex(i=>i.id===id); 
-      if(idx===-1) return; 
-      if(action==='incr') cart[idx].quantity++; 
-      else if(action==='decr') { 
-        if(cart[idx].quantity>1) cart[idx].quantity--; 
-        else cart.splice(idx,1); 
-      } 
-      saveCart(); 
-    }
-    
-    function removeItemCompletely(id) { 
-      cart = cart.filter(i=>i.id!==id); 
-      saveCart(); 
-    }
-    
-    function addToCart(productId) { 
-      const product = menuItems.find(p=>p.id===productId); 
-      if(!product) return; 
-      const existing = cart.find(i=>i.id===productId); 
-      if(existing) existing.quantity++; 
-      else cart.push({ id:product.id, name:product.name, price:product.price, quantity:1 }); 
-      saveCart(); 
-      alert(`${product.name} added to cart!`); 
-    }
-    
-    function renderMenu() {
-      const grid = document.getElementById('menuGrid');
-      if(!grid) return;
-      grid.innerHTML = menuItems.map(item => `
-        <div class="menu-card">
-          <div class="menu-icon"><i class="${item.icon}"></i></div>
-          <h3>${escapeHtml(item.name)}</h3>
-          <p>${escapeHtml(item.desc)}</p>
-          <div class="price">GHS ${item.price}</div>
-          <button class="add-to-cart-btn" data-id="${item.id}">Add to Cart</button>
+    function updateQuantity(id, action) { const idx = cart.findIndex(i=>i.id===id); if(idx===-1) return; if(action==='incr') cart[idx].quantity++; else if(action==='decr') { if(cart[idx].quantity>1) cart[idx].quantity--; else cart.splice(idx,1); } saveCart(); }
+    function removeItemCompletely(id) { cart = cart.filter(i=>i.id!==id); saveCart(); }
+    function addToCart(productId) { const product = menuItems.find(p=>p.id===productId); if(!product) return; const existing = cart.find(i=>i.id===productId); if(existing) existing.quantity++; else cart.push({ id:product.id, name:product.name, price:product.price, quantity:1 }); saveCart(); alert(`${product.name} added to cart!`); }
+
+    // Render Menu Slider
+    function renderSlider() {
+      const slidesContainer = document.getElementById('sliderSlides');
+      const dotsContainer = document.getElementById('sliderDots');
+      if (!slidesContainer) return;
+      slidesContainer.innerHTML = menuItems.map((item) => `
+        <div class="slider-slide" data-id="${item.id}">
+          <div class="slide-image" style="background-image: url('${item.img}');">
+            <div class="image-placeholder-hint">📸 Replace this image</div>
+          </div>
+          <div class="slide-content">
+            <span class="dish-category">${escapeHtml(item.category)}</span>
+            <h3>${escapeHtml(item.name)}</h3>
+            <p class="dish-description">${escapeHtml(item.description)}</p>
+            <div class="dish-footer">
+              <span class="dish-price">GHS ${item.price}</span>
+              <button class="order-now-slider" data-id="${item.id}">ORDER NOW</button>
+            </div>
+          </div>
         </div>
       `).join('');
-      document.querySelectorAll('.add-to-cart-btn').forEach(btn => { 
-        btn.addEventListener('click', (e) => { 
-          addToCart(parseInt(btn.dataset.id)); 
-        }); 
-      });
+      dotsContainer.innerHTML = menuItems.map((_, idx) => `<div class="dot ${idx === currentSlide ? 'active' : ''}" data-index="${idx}"></div>`).join('');
+      document.querySelectorAll('.order-now-slider').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const id = parseInt(btn.dataset.id); addToCart(id); }); });
+      document.querySelectorAll('.dot').forEach(dot => { dot.addEventListener('click', (e) => { const index = parseInt(dot.dataset.index); goToSlide(index); resetAutoSlide(); }); });
+      updateSliderPosition();
     }
-    
-    // Place Order via SMS
+    function updateSliderPosition() { const slidesContainer = document.getElementById('sliderSlides'); if (slidesContainer) { slidesContainer.style.transform = `translateX(-${currentSlide * 100}%)`; } document.querySelectorAll('.dot').forEach((dot, idx) => { if (idx === currentSlide) dot.classList.add('active'); else dot.classList.remove('active'); }); }
+    function goToSlide(index) { if (index < 0) index = 0; if (index >= menuItems.length) index = menuItems.length - 1; currentSlide = index; updateSliderPosition(); }
+    function nextSlide() { currentSlide = (currentSlide < menuItems.length - 1) ? currentSlide + 1 : 0; updateSliderPosition(); }
+    function prevSlide() { currentSlide = (currentSlide > 0) ? currentSlide - 1 : menuItems.length - 1; updateSliderPosition(); }
+    function startAutoSlide() { autoSlideInterval = setInterval(() => { nextSlide(); }, 6000); }
+    function resetAutoSlide() { clearInterval(autoSlideInterval); startAutoSlide(); }
+    function stopAutoSlide() { clearInterval(autoSlideInterval); }
+
+    // Render Reviews
+    function renderReviews() {
+      const statsContainer = document.getElementById('reviewsStats');
+      const avgRating = (reviewsData.reduce((s,r)=>s+r.rating,0)/reviewsData.length).toFixed(1);
+      statsContainer.innerHTML = `<div class="stat-card"><i class="fas fa-star"></i><div><span class="stat-number">${avgRating}</span><br>Average Rating</div></div><div class="stat-card"><i class="fas fa-users"></i><div><span class="stat-number">${reviewsData.length}</span><br>Customer Reviews</div></div>`;
+      const track = document.getElementById('reviewsTrack');
+      const dotsContainer = document.getElementById('reviewDots');
+      track.innerHTML = reviewsData.map(rev => `<div class="review-card"><div class="review-inner"><div class="review-stars">${'★'.repeat(rev.rating)}${'☆'.repeat(5-rev.rating)}</div><p class="review-text">"${escapeHtml(rev.text)}"</p><div class="reviewer-name">${escapeHtml(rev.name)}</div></div></div>`).join('');
+      dotsContainer.innerHTML = reviewsData.map((_, idx) => `<div class="review-dot ${idx === currentReview ? 'active' : ''}" data-index="${idx}"></div>`).join('');
+      document.querySelectorAll('.review-dot').forEach(dot => { dot.addEventListener('click', (e) => { const index = parseInt(dot.dataset.index); goToReview(index); resetAutoReview(); }); });
+      updateReviewPosition();
+    }
+    function updateReviewPosition() { const track = document.getElementById('reviewsTrack'); if (track) { track.style.transform = `translateX(-${currentReview * 100}%)`; } document.querySelectorAll('.review-dot').forEach((dot, idx) => { if (idx === currentReview) dot.classList.add('active'); else dot.classList.remove('active'); }); }
+    function goToReview(index) { if (index < 0) index = 0; if (index >= reviewsData.length) index = reviewsData.length - 1; currentReview = index; updateReviewPosition(); }
+    function nextReview() { currentReview = (currentReview < reviewsData.length - 1) ? currentReview + 1 : 0; updateReviewPosition(); }
+    function startAutoReview() { autoReviewInterval = setInterval(() => { nextReview(); }, 7000); }
+    function resetAutoReview() { clearInterval(autoReviewInterval); startAutoReview(); }
+
     function placeOrder() {
       const name = document.getElementById('customerName').value.trim();
       const phone = document.getElementById('customerPhone').value.trim();
       const location = document.getElementById('customerLocation').value.trim();
       const notes = document.getElementById('orderNotes').value.trim();
-      
       if (!name) { alert("Please enter your full name."); return; }
       if (!phone) { alert("Please enter your telephone number."); return; }
       if (!location) { alert("Please enter your delivery location."); return; }
-      if (cart.length === 0) { alert("Your cart is empty. Add some delicious items first."); return; }
-      
-      const orderSummary = cart.map(i => `${i.name} x${i.quantity} (GHS ${i.price * i.quantity})`).join(', ');
+      if (cart.length === 0) { alert("Your cart is empty. Add items from our menu slider."); return; }
+      const orderSummary = cart.map(i => `${i.name} x${i.quantity}`).join(', ');
       const totalAmount = cart.reduce((s,i) => s + (i.price * i.quantity), 0);
-      
-      const message = `NEW ORDER%0AFrom: ${name}%0ATel: ${phone}%0ALocation: ${location}%0AItems: ${orderSummary}%0ATotal: GHS ${totalAmount}%0ANotes: ${notes || "None"}%0A%0AThank you! - Kiss Kiss Kitchen`;
-      
-      if (confirm(`Confirm your order:\n\n${orderSummary}\nTotal: GHS ${totalAmount}\n\nClick OK to send SMS to ${BUSINESS_NUMBER}`)) {
+      const message = `KISS KISS KITCHEN ORDER%0A%0AName: ${name}%0APhone: ${phone}%0ALocation: ${location}%0A%0AORDER:%0A${orderSummary}%0A%0ATOTAL: GHS ${totalAmount}%0A%0ANotes: ${notes || "None"}%0A%0AThank you for choosing Kiss Kiss Kitchen!`;
+      if (confirm(`Confirm order:\n${orderSummary}\nTotal: GHS ${totalAmount}\nSend SMS to 0595590891?`)) {
         window.location.href = `sms:${BUSINESS_NUMBER}?body=${message}`;
-        
-        // Save order locally for reference
-        const ordersHistory = JSON.parse(localStorage.getItem('kissOrdersHistory') || '[]');
-        ordersHistory.push({ timestamp: new Date().toISOString(), customer: { name, phone, location, notes }, items: [...cart], total: totalAmount });
-        localStorage.setItem('kissOrdersHistory', JSON.stringify(ordersHistory));
-        
-        setTimeout(() => { 
-          if (confirm("Order sent! Do you want to clear your cart?")) { 
-            cart = []; 
-            saveCart(); 
-            document.getElementById('customerName').value = ''; 
-            document.getElementById('customerPhone').value = ''; 
-            document.getElementById('customerLocation').value = ''; 
-            document.getElementById('orderNotes').value = ''; 
-          } 
-        }, 500);
+        setTimeout(() => { if(confirm("Order sent! Clear your cart?")) { cart = []; saveCart(); document.getElementById('customerName').value = ''; document.getElementById('customerPhone').value = ''; document.getElementById('customerLocation').value = ''; document.getElementById('orderNotes').value = ''; } }, 500);
       }
     }
-    
-    function copyNumber() {
-      navigator.clipboard.writeText(BUSINESS_NUMBER);
-      alert(`Number copied: ${BUSINESS_NUMBER}`);
-    }
-    
-    // Hamburger Menu Functions
-    function openMenu() {
-      document.getElementById('sidebarMenu').classList.add('open');
-      document.getElementById('menuOverlay').classList.add('active');
-      document.getElementById('hamburgerBtn').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-    function closeMenu() {
-      document.getElementById('sidebarMenu').classList.remove('open');
-      document.getElementById('menuOverlay').classList.remove('active');
-      document.getElementById('hamburgerBtn').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-    function toggleMenu() {
-      if (document.getElementById('sidebarMenu').classList.contains('open')) {
-        closeMenu();
-      } else {
-        openMenu();
-      }
-    }
-    
-    // Event Listeners
-    document.getElementById('hamburgerBtn')?.addEventListener('click', toggleMenu);
+    function copyNumber() { navigator.clipboard.writeText(BUSINESS_NUMBER); alert(`Copied: ${BUSINESS_NUMBER}`); }
+
+    function closeMenu() { document.getElementById('sidebarMenu').classList.remove('open'); document.getElementById('menuOverlay').classList.remove('active'); document.body.style.overflow = ''; }
+    function openMenu() { document.getElementById('sidebarMenu').classList.add('open'); document.getElementById('menuOverlay').classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function scrollToSection(id) { const el = document.getElementById(id); if(el) el.scrollIntoView({ behavior: 'smooth' }); closeMenu(); }
+
+    document.getElementById('hamburgerBtn')?.addEventListener('click', openMenu);
     document.getElementById('closeMenuBtn')?.addEventListener('click', closeMenu);
     document.getElementById('menuOverlay')?.addEventListener('click', closeMenu);
-    document.getElementById('copyNumberBtn')?.addEventListener('click', copyNumber);
-    
-    document.querySelectorAll('.menu-stack-item').forEach(item => {
-      item.addEventListener('click', (e) => {
-        const section = item.dataset.section;
-        if (section === 'home') document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-        if (section === 'menu') document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
-        if (section === 'order') document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
-        closeMenu();
-      });
-    });
-    
-    document.getElementById('sidebarOrderBtn')?.addEventListener('click', () => { closeMenu(); document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }); });
-    document.getElementById('heroMenuBtn')?.addEventListener('click', () => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' }));
-    document.getElementById('heroOrderBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
-    document.getElementById('cartIconBtn')?.addEventListener('click', () => document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' }));
+    document.getElementById('cartIconBtn')?.addEventListener('click', () => scrollToSection('order-section'));
+    document.getElementById('fabCart')?.addEventListener('click', () => scrollToSection('order-section'));
+    document.getElementById('heroOrderBtn')?.addEventListener('click', () => scrollToSection('order-section'));
+    document.getElementById('heroMenuBtn')?.addEventListener('click', () => scrollToSection('menu'));
     document.getElementById('placeOrderBtn')?.addEventListener('click', placeOrder);
+    document.getElementById('copyNumberBtn')?.addEventListener('click', copyNumber);
+    document.getElementById('sidebarOrderBtn')?.addEventListener('click', () => { closeMenu(); scrollToSection('order-section'); });
+    document.getElementById('prevBtn')?.addEventListener('click', () => { prevSlide(); resetAutoSlide(); });
+    document.getElementById('nextBtn')?.addEventListener('click', () => { nextSlide(); resetAutoSlide(); });
+    document.querySelectorAll('.menu-stack-item').forEach(el => { el.addEventListener('click', () => { const section = el.dataset.section; if(section === 'home') scrollToSection('home'); if(section === 'menu') scrollToSection('menu'); if(section === 'reviews') scrollToSection('reviews'); if(section === 'order') scrollToSection('order-section'); }); });
     
-    renderMenu();
+    renderSlider();
+    renderReviews();
     loadCart();
+    startAutoSlide();
+    startAutoReview();
+    const sliderContainer = document.querySelector('.slider-container');
+    if(sliderContainer) { sliderContainer.addEventListener('mouseenter', stopAutoSlide); sliderContainer.addEventListener('mouseleave', startAutoSlide); }
   </script>
 </body>
 </html>
-```
