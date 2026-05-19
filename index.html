@@ -257,7 +257,7 @@
       background-color: #f0e2d0; /* Fallback color while image loads */
     }
     /* Image placeholder hint - visible to website owner only */
-    .image-placeholder-hint {
+   /* .image-placeholder-hint {
       position: absolute;
       bottom: 10px;
       right: 10px;
@@ -269,7 +269,7 @@
       font-family: monospace;
       pointer-events: none;
       z-index: 5;
-    }
+    }*/
     /* Content Section */
     .slide-content {
       padding: 40px 48px 48px;
@@ -716,7 +716,6 @@
       slidesContainer.innerHTML = menuItems.map((item) => `
         <div class="slider-slide" data-id="${item.id}">
           <div class="slide-image" style="background-image: url('${item.img}');">
-            <div class="image-placeholder-hint">📸 Replace this image</div>
           </div>
           <div class="slide-content">
             <span class="dish-category">${escapeHtml(item.category)}</span>
